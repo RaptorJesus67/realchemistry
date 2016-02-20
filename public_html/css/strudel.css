@@ -1,0 +1,21 @@
+@font-face { /* PT Sans Font Definition */
+	font-family: PT Sans;
+	src: url(fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face { /* PT Sans Font Definition */
+	font-family: PT Sans Bold;
+	src: url(fonts/PT_Sans-Web-Bold.ttf);
+}
+
+@font-face { /* PT Sans Font Definition */
+	font-family: PT Sans Italic;
+	src: url(fonts/PT_Sans-Web-Italic.ttf);
+}
+
+@font-face { /* PT Sans Font Definition */
+	font-family: PT Sans Bold Italic;
+	src: url(fonts/PT_Sans-Web-BoldItalic.ttf);
+}
+
+
