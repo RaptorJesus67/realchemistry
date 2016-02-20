@@ -300,7 +300,11 @@
 					
 				} else if (item.name.toLowerCase().indexOf(searchString) == -1) {
 					
-					$("section").html("<p>No Results Matched</p>");
+					//////////////////////////////////////////////////
+					// This keeps showing an error...
+					// Keep it commented out.
+					//
+					//$("section").html("<p>No Results Matched</p>");
 					
 				}
 				

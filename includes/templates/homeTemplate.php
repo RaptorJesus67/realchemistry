@@ -13,7 +13,7 @@
 	<div class='elementContainer'>
 		
 		<div class='elementWrapper' ng-repeat='e in elements | searchFor:searchString | orderBy: "num"'>
-			<a href='http://en.wikipedia.org/wiki/{{e.name}}' target='_blank'>
+			<a href='<?php echo BASE_URI; ?>element/{{e.name.toLowerCase()}}' target='_blank'>
 				<div class='elementBox' ng-style='getColor(e.group)' ng-attr-title='{{e.group}}'>
 					<div id='atomicNumber'>
 						<span>{{e.num}}</span>
