@@ -84,9 +84,21 @@
 		*/
 		public function select($tableName, $columns = array(), $where = null, $limit = null, $order = array(), $count = FALSE, $explain = FALSE) {
 			
-			// The main SQL Injector/XSS Attack
+			//////////////////////////////
+			//	SQL INJECTION PROTECTION
+			//
+			// 		The main SQL Injector/XSS Attack
+			//
+			//
 			global $purifier;
 			
+			
+			//////////////////////////////
+			//	EXPLAIN
+			//
+			//		For SQL Explain Code
+			//
+			//
 			if ($explain) {
 			
 				$explain = "EXPLAIN ";
@@ -97,7 +109,13 @@
 			
 			}
 			
-			// Make columns SQL friendly
+			
+			//////////////////////////////
+			//	COLUMNS
+			//
+			//		Make columns SQL friendly
+			//
+			//
 			$cols = "";
 			
 			if (!empty($columns)) {
@@ -106,22 +124,50 @@
 				$cols .= "`";
 			}
 			
+			
+			//////////////////////////////
+			//	TABLE
+			//
+			//		Create $table variable
+			//
+			//
 			$table = "`" . $tableName . "`";
 			
+			
+			
+			/////////////////////////////
+			//	WHERE
+			//
+			//		Initiate the WHERE Statement
+			//
+			//
 			if (!empty($where)) {
 				
 				$where = " WHERE " . $where;
 				
 			}
 			
-			// Check limit
+			
+			/////////////////////////////
+			//	LIMIT
+			//
+			//		Check limit
+			//
+			//
 			if (!empty($limit)) {
 				
 				$limit = " LIMIT $limit";
 				
 			}
 			
-			// Check Order
+			
+			
+			//////////////////////////////
+			//	ORDER
+			//
+			// 		Check Order
+			//
+			//
 			if (!empty($order)) {
 				
 				$ord = " ORDER BY " . $order[0] . " " . $order[1];
@@ -132,22 +178,53 @@
 				
 			}
 			
-			// Check Count
+			
+			
+			//////////////////////////////
+			//	COUNT
+			//
+			// 		Check Count
+			//
+			//
 			if ($count) {
 				
 				$counts = " COUNT(`" . $count[0] . "`) AS `" . $count[1] . "`";
 				
+			} else {
+			
+				$counts = null;
+				
 			}
 			
-			// SQL CODE
+			
+			
+			///////////////////////////////
+			//	SQL
+			//
+			// 		SQL CODE
+			//
+			//
 			$sql = $explain . "SELECT " . $counts . $cols . " FROM " . $table . $where . $limit . $ord;
+			
 			
 			// SQL DEBUGGING IF CODE RETURNS BOOLEAN ERROR
 			#echo $sql . "<br>";
 			
+			
+			
+			
+			///////////////////////////////
+			//	QUERY
+			//
+			//		Actual Query made here with a die statement for error handling
+			//
+			//
+			//
 			$query = $this->conn->query($sql) or die ($this->conn->error);
 			
 			
+			
+			/////////////////////////////////////////////////////////////////////
 			// Store the value in a variable called table with an array of that 
 			// table's name followed by it's values and iteration
 			//
@@ -157,7 +234,13 @@
 			
 			while($row = $query->fetch_assoc()){
 				
+				////////////////////////////////////////////////////////////////////////////////
 				// Store values as $model->table["tableName"]["columnName"]["index (usually 0)"]
+				//
+				// EX: $model->table["elements"]["element_name"][0]
+				//	This is for "Hydrogen", the first element
+				//	
+				//	Subtract 1 from 'atomic number' since computers count from '0'
 				foreach ($row as $key => $val) {
 					$this->data[$tableName][$key][] = $row[$key];
 				}
@@ -165,32 +248,52 @@
 			}
 			
 			
+			
+			////////////////////////////////////////////////////////////////////
+			//
 			// Loop through results to clean them
 			// Foreach loops through each column
 			// Make sure the table isn't empty (i.e. login returns an error)
+			//
+			//
 			if (!empty($this->data[$tableName])) {
-				foreach ($this->data[$tableName] as $key => $tableArray) {
+				
+				foreach ($this->data[$tableName] as $tble => $column) {
 					
 					// For loop goes through each value in a certain row
-					for ($i = 0; $i < count($tableArray); $i++) {
+					for ($row = 0; $row < count($column); $row++) {
+						
 						// Convert from data variable to table after HTML PURIFIER
-						$this->table[$tableName][$key][$i] = $purifier->purify($tableArray[$i]);
+						$this->table[$tableName][$tble][$row] = $purifier->purify($column[$row]);
+					
 					}
 					
 				}
+				
 			}
 			
 			
+			///////////////////////////////////////////////////////////////
 			// Declare the array after loop has finished for use in view
+			//
+			//
 			$this->table;
 			
 			if (!empty($this->table)) {
 				
+				# Returns Boolean to Sub-Model That Can Be
+				# Used in Sub-Controller For Access
+				# And Navigation
 				return true;
 				
 			}
 			
 		}
+		
+		
+		
+		
+		
 		
 		
 		

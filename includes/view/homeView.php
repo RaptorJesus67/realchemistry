@@ -15,8 +15,8 @@
 		
 		private function loadHomePage() {
 			
-			$title = "Real Chemistry Applet";
-			$template = "homeTemplate.php";
+			$title = "Real Chemistry";
+			$template = "homeTemplate.html";
 			
 			$this->loadPage($title, $template);	
 			

@@ -2,6 +2,8 @@
 
 	class View {
 		
+		public $head, $foot;
+		
 		public function __construct() {
 			
 			$this->pageName = "Home";
@@ -10,7 +12,7 @@
 		
 		
 		
-		protected function setTitle($title = "Offstreams") {
+		protected function setTitle($title = "Real Chemistry") {
 			
 			return $title;
 			
@@ -18,7 +20,7 @@
 		
 		
 		
-		protected function loadPage($title = "Offstreams", $templateName = "homeTemplate.php") {
+		protected function loadPage($title = "Real Chemistry", $templateName = "homeTemplate.php") {
 			
 			$this->title = $title;
 			
@@ -27,6 +29,7 @@
 			require_once(BASE_INCLUDE . "footer.php");
 			
 		}
+		
 		
 		
 		

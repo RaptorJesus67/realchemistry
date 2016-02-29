@@ -8,5 +8,7 @@
 	</head>
 	<body>
 		<header>
-			<h2 class='center'>Real Chemistry Applet</h2>
+			<a href='<?php echo BASE_URI; ?>' class='stripA'>
+				<h2 class='center'>Real Chemistry</h2>
+			</a>
 		</header>

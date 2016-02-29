@@ -9,8 +9,14 @@
 		
 		public function __construct() {
 			
+			
+			global $url;
+			
 			$this->model = new elementModel;
 			$this->view = new elementView;
+			
+			$this->url = $url->trimURL();
+			
 			
 			if (isset($_POST['data'])) {
 				
@@ -32,12 +38,22 @@
 				
 				echo json_encode($this->e);
 			
+			
+			// Actual Page
 			} else {
 				
-				echo "NO";
+				if (isset($this->url[0])) {
+					
+					$this->singleElementPage();
+					
+					
+				} else {
+					
+					echo "NO";
+				
+				}
 				
 			}
-			
 			
 		}
 		
@@ -175,6 +191,25 @@
 				}
 				
 			}
+			
+		}
+		
+		
+		
+		private function singleElementPage() {
+			
+			
+			$this->model->loadElementData($this->url[1]);
+			
+			// Last and Next Elements
+			$this->model->loadPreviousElement($this->model->table["elements"]["atom_number"][0]);
+			$this->model->loadNextElement($this->model->table["elements"]["atom_number"][0]);
+			
+			# Initiate View after All DB Calls
+			$this->view = new elementView($this->model->table);
+			$this->view->loadElementPage($this->url[1]);
+			
+			
 			
 		}
 		

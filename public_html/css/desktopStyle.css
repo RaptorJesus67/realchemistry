@@ -79,6 +79,47 @@ footer {
 	text-align: center;
 	font-family: PT Sans Bold;
 	font-weight: 700;
+	margin: 0 auto;
+	display: block;
+}
+
+.stripA {
+	text-decoration: none;
+	color: inherit;
+}
+
+.leftContainer {
+	float: left;
+	width: 33%;
+}
+
+.leftContainer > p {
+	margin-left: 10px;
+}
+
+.leftContainer > p > a{
+	text-decoration: underline;
+	color: #0645AD;
+}
+
+.centerContainer {
+	float: left;
+	width: 34%;
+}
+
+.rightContainer {
+	float: left;
+	width: 33%;
+}
+
+.rightContainer > p {
+	text-align: right;
+	margin-right: 10px;
+}
+
+.rightContainer > p > a{
+	text-decoration: underline;
+	color: #0645AD;
 }
 
 /***************************/
@@ -100,6 +141,7 @@ footer {
 	background: red;
 	position: relative;
 	box-shadow: 1px 1px 3px #888;
+	cursor: pointer;
 }
 
 #elementSymbol {
@@ -132,5 +174,6 @@ section > p {
 	font-family: PT Sans Bold;
 	font-weight: 700;
 }
+
 
 

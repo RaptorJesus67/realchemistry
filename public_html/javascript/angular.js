@@ -124,9 +124,16 @@
 	var base_uri = "http://realchemistry.loc/";
 	
 	
-	// ADMIN INTIATION
+	// REAL CHEMISTRY MODULE
 	var app = angular.module('real-chem', []);
-
+	
+	
+	/* --------------------------------------------------------------
+	 * --------------------------------------------------------------
+	 * CONTROLLER		-	Elements
+	 * --------------------------------------------------------------
+	 * --------------------------------------------------------------
+	 */
 	app.controller('Elements', ['$http', '$scope', function($http, $scope) {
 		
 		$scope.elements = "";
@@ -203,13 +210,9 @@
 					
 				});
 				
-				
-				
-				
 			});
 			
 		});
-		
 		
 		
 		
@@ -266,14 +269,53 @@
 				
 			}
 			
+		} // END getColor()
+		
+		
+		
+		// LOAD NEW PAGE INFO
+		/*$scope.loadPage = function(name) {
 			
+			// THE NEW URL
+			var URL = base_uri + "element/" + name.toLowerCase();
+			// Use pushState() So the user can scroll through history
+			history.pushState("", "", URL);
 			
+			$(".wrapper").remove();
 			
+			// Make $HTTP Call for the page
+			$http({
+				
+				method: 'post',
+				url: URL,
+				data: "head=" + false,
+				headers: { 'Content-Type': 'application/x-www-form-urlencoded' } // For AJAX interpretation
+				
+			}).success(function(value){
+				
+				$("header").append(value);
+				
+			});
 			
+		}*/
+		
+		
+		$(document).on("click", ".elementLink", function(e) {
 			
-		}
+			// Prevent the Page from reloading
+			//e.preventDefault();
+			// Local Var
+			//var $self = $(this);
+			
+			// Load the function for loading
+			//$scope.loadPage($self.attr("data-name"));
+			
+		});
+		
 		
 	}]);
+	
+	
 	
 	
 	app.filter('searchFor', function() {
@@ -318,9 +360,11 @@
 		
 	});
 	
+	
 	function escapeRegExp(string){
 		return string.replace(/([.*+?^=!:${}()|\[\]\/\\])/g, "\\$1");
 	}
+	
 	
 	
 	function MyController($scope) {
@@ -338,7 +382,6 @@
 			return regex.test(name);
 		};
 	}
-	
 	
 	
 	
